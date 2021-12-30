@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Implementation {
@@ -34,5 +35,70 @@ public class Implementation {
             }
         }
         return Integer.toString(nowX) + " " + Integer.toString(nowY);
+    }
+
+    // 시각
+    public int problem2(int n) {
+        int count = 0;
+
+        for (int i = 0 ; i < n + 1 ; i++) {
+            for (int j = 0 ; j < 60 ; j++) {
+                for (int k = 0 ; k < 60 ; k++) {
+                    if ((Integer.toString(i) + Integer.toString(j) + Integer.toString(k)).contains("3")) {
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
+    // 왕실의 나이트
+    public int problem3(String position) {
+        char[] y = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        int[] dx = {1, 2, 2, 1, -1, -2, -2, -1};
+        int[] dy = {-2, -1, 1, 2, 2, 1, -1, -2};
+        int nx = position.charAt(1) - '0';
+        int ny = 0;
+
+        for (int i = 0 ; i < y.length ; i++) {
+            if (position.charAt(0) == y[i]) {
+                ny = i + 1;
+            }
+        }
+
+        int count = 0;
+
+        for (int i = 0 ; i < 8 ; i++) {
+            if (nx + dx[i] > 0 && nx + dx[i] <= 8 && ny + dy[i] > 0 && ny + dy[i] <= 8) {
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    // 문자열 재정렬
+    public String problem4(String s) {
+        int su = 0;
+        List<Character> list = new ArrayList<>();
+
+        for (int i = 0 ; i < s.length() ; i++) {
+            if (s.charAt(i) - 'A' < 0) {
+                su += s.charAt(i) - '0';
+            } else {
+                list.add(s.charAt(i));
+            }
+        }
+
+        Collections.sort(list);
+
+        String result = "";
+        for (int i = 0 ; i < list.size() ; i++) {
+            result += list.get(i);
+        }
+        result += su;
+
+        return result;
     }
 }

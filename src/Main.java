@@ -13,5 +13,15 @@ public class Main {
         Implementation implementation = new Implementation();
 
         System.out.println("implementation.problem1(5, \"R R R U D D\") = " + implementation.problem1(5, "R R R U D D"));
+
+        System.out.println("implementation.problem2(5) = " + implementation.problem2(5));
+
+        System.out.println("implementation.problem3() = " + implementation.problem3("a1"));
+
+        System.out.println("implementation.problem4(\"K1KA5CB7\") = " + implementation.problem4("AJKDLSI412K4JSJ9D"));
+
+        Recursive recursive = new Recursive();
+        System.out.println("recursive.factorial(5) = " + recursive.factorial(5));
+        System.out.println("recursive.GCD(192, 162) = " + recursive.GCD(192, 162));
     }
 }
