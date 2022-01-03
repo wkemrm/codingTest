@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Greedy {
     // 그리디는 매상황 최선을 고르는 것이다.
@@ -81,5 +78,23 @@ public class Greedy {
             }
         }
         return result;
+    }
+
+    //만들 수 없는 금액 p314
+    public int problem5() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        List<Integer> su = new ArrayList<>();
+        for (int i = 0 ; i < n ; i ++) {
+            su.add(sc.nextInt());
+        }
+
+        int target = 1;
+        for (int i = 0 ; i < su.size(); i++) {
+            if (target < su.get(i)) break;
+            target += su.get(i);
+        }
+        return target;
     }
 }
