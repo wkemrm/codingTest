@@ -97,4 +97,80 @@ public class Greedy {
         }
         return target;
     }
+
+    // 볼링공 고르기 p315
+    public int problem6() {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+
+        List<Integer> su = new ArrayList<>();
+        for (int i = 0 ; i < n ; i++) {
+            su.add(sc.nextInt());
+        }
+        int count = 0;
+        for (int i = 0 ; i < su.size() - 1 ; i++) {
+            for (int j = i + 1 ; j < su.size() ; j++) {
+                if (su.get(i) != su.get(j)) {
+                    count++;
+                }
+            }
+        }
+
+        return count;
+    }
+
+    public class Item{
+        int time;
+        int idx;
+
+        public Item(int time, int idx) {
+            this.time = time;
+            this.idx = idx;
+        }
+    }
+    Comparator<Item> CompTime = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.time - o2.time;
+        }
+    };
+    Comparator<Item> CompIdx = new Comparator<Item>() {
+        @Override
+        public int compare(Item o1, Item o2) {
+            return o1.idx - o2.idx;
+        }
+    };
+    // 무지의 먹방 라이브 p316
+    public int problem7(int[] food_times, long k) {
+        List<Item> list = new ArrayList<>();
+        for (int i = 0 ; i < food_times.length ; i++) {
+            list.add(new Item(food_times[i], i + 1));
+        }
+        list.sort(CompTime);
+
+        int pretime = 0;
+        int n = food_times.length;
+        int i = 0;
+
+        for (Item item : list) {
+            int diff = item.time - pretime;
+
+            if (diff != 0 ) {
+                long spend = diff * n;
+                if (spend <= k) {
+                    k -= spend;
+                    pretime = item.time;
+                } else {
+                    k %= n;
+                    list.subList(i, food_times.length).sort(CompIdx);
+                    return list.get(i + (int)k).idx;
+                }
+            }
+            ++i;
+            --n;
+        }
+
+        return -1;
+    }
 }

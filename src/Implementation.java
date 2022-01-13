@@ -1,6 +1,7 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Implementation {
     // 구현 : 머릿속에 있는 것을 코드로 구현하는것
@@ -101,4 +102,94 @@ public class Implementation {
 
         return result;
     }
+
+    //백준 10798 세로읽기
+    public void problem10798() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        List<String> list = new ArrayList<>();
+        try {
+            for (int i = 0 ; i < 5 ; i++) {
+                list.add(br.readLine());
+            }
+        } catch (IOException e) {
+        }
+
+        String result = "";
+        for (int i = 0 ; i < 15; i++) {
+            for (int j = 0 ; j < list.size() ; j++) {
+                if (list.get(j).length() <= i) {
+                    continue;
+                }
+                result += list.get(j).charAt(i);
+            }
+        }
+
+        System.out.println("result = " + result);
+    }
+
+    //백준 2049 윷놀이
+    public void problem2049() {
+        // 도 0111 A
+        // 개 0011 B
+        // 걸 0001 C
+        // 윷 0000 D
+        // 모 1111 E
+        Map<Integer, String> map = new HashMap<>();
+        map.put(0, "E");
+        map.put(1, "A");
+        map.put(2, "B");
+        map.put(3, "C");
+        map.put(4, "D");
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String[] result = new String[3];
+        try {
+            for (int i = 0 ; i < 3 ; i++) {
+                String line = br.readLine();
+                int zero = 0;
+                for (int j = 0 ; j < line.length(); j++) {
+                    if (line.charAt(j) == '0') {
+                        zero++;
+                    }
+                }
+                result[i] = map.get(zero);
+            }
+        } catch (Exception e) {
+
+        }
+
+        for (int i = 0 ; i < result.length ; i++) {
+            System.out.println(result[i]);
+        }
+    }
+
+    //백준 2884 알람 시계
+    public void problem2884() {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String[] s = br.readLine().split(" ");
+            int h = Integer.parseInt(s[0]);
+            int m = Integer.parseInt(s[1]);
+            int total = (h * 60) + m;
+            if (total < 45) {
+                total += (24 * 60);
+            }
+            total -= 45;
+            int nh = total/60;
+            int nm = total%60;
+            System.out.println(nh + " " + nm);
+        } catch (IOException e) {
+
+
+        }
+    }
+
+    //0 CBADEF
+    //1 CBDAEF
+    //2 CDBEAF
+
+    //0 ALJCRUO
+    //1 ALCJRUO
+    //2 ACLRJUO
+    //3 CALRUJO
 }
