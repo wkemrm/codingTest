@@ -421,4 +421,208 @@ public class Programmers {
         return answer.trim();
     }
 
+    //자릿수 더하기
+    public int problem20(int n) {
+        int answer = 0;
+        String s = Integer.toString(n);
+        for (int i = 0 ; i < s.length() ; i++) {
+            answer += s.charAt(i) - '0';
+        }
+
+        return answer;
+    }
+
+    //자연수 뒤집어 배열로 만들기
+    public int[] problem21(long n) {
+        String s = Long.toString(n);
+        int[] answer = new int[s.length()];
+        int j = 0;
+        for (int i = s.length() - 1 ; i >= 0 ; i--) {
+            answer[j] = s.charAt(i) - '0';
+            j++;
+        }
+        return answer;
+    }
+
+    //정수 내림차순으로 배치하기
+    public long problem22(long n) {
+        String s = "" + n;
+        Integer[] intArray = new Integer[s.length()];
+        for (int i = 0 ; i < s.length() ; i++) {
+            intArray[i] = s.charAt(i) - '0';
+        }
+        Arrays.sort(intArray, Comparator.reverseOrder());
+        String sAnswer = "";
+        for (int i = 0 ; i < intArray.length ; i++) {
+            sAnswer += intArray[i];
+        }
+
+        long answer = Long.parseLong(sAnswer);
+        return answer;
+    }
+
+    //정수 제곱근 판별
+    public long problem23(long n) {
+        long sqrt = (long)Math.sqrt(n);
+        if (n == (long)Math.pow(sqrt, 2)) {
+            return (long)Math.pow(sqrt + 1, 2);
+        } else {
+            return -1;
+        }
+    }
+
+    //제일 작은 수 제거하기
+    public int[] problem24(int[] arr) {
+        int[] answer = new int[arr.length - 1];
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0 ; i < arr.length ; i++) {
+            list.add(arr[i]);
+        }
+        Arrays.sort(arr);
+        int j = 0;
+        for (int i = 0 ; i < list.size() ; i++) {
+            if (list.get(i) == arr[0]) {
+
+            } else {
+                answer[j] = list.get(i);
+                j++;
+            }
+        }
+        if (answer.length == 0) {
+            return new int[]{-1};
+        }
+        return answer;
+    }
+
+    //콜라츠 추측
+   public long problem24(long num) {
+       long answer = 0;
+
+        while (true) {
+            if (answer >= 500) {
+                return -1;
+            }
+            if (num == 1) {
+                break;
+            }
+            if (num % 2 == 0) {
+                num = num/2;
+            } else {
+                num = (num * 3) + 1;
+            }
+            answer++;
+        }
+        return answer;
+    }
+
+    public boolean problem25(int x) {
+        int firstNum = x;
+        int total = 0;
+        while (true) {
+            total += (x % 10);
+            System.out.println(total);
+            if (x < 10) {
+                break;
+            }
+            x /= 10;
+        }
+        if (firstNum % total == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String problem26(String phone_number) {
+        String answer = "";
+        String lastNum = phone_number.substring(phone_number.length() - 4);
+        String preNum = phone_number.substring(0, phone_number.length() - 4);
+        for (int i = 0 ; i < preNum.length() ; i++) {
+            answer += "*";
+        }
+        answer += lastNum;
+        return answer;
+    }
+
+    public int[][] problem27(int[][] arr1, int[][] arr2) {
+        int[][] answer = new int[arr1.length][arr1[0].length];
+        for (int i = 0 ; i < arr1.length ; i++) {
+            for (int j = 0 ; j < arr1[i].length ; j++) {
+                answer[i][j] = arr1[i][j] + arr2[i][j];
+            }
+        }
+        return answer;
+    }
+
+    public long[] problem28(int x, int n) {
+        long[] answer = new long[n];
+        for (int i = 0 ; i < n ; i++) {
+            answer[i] = x * (i + 1);
+        }
+        return answer;
+    }
+
+    //[1차] 다트 게임
+    public int problem29(String dartResult) {
+        Map<Character, Integer> bonus = new HashMap<>(){{
+            put('S', 1);
+            put('D', 2);
+            put('T', 3);
+        }};
+
+        Map<Character, Integer> option = new HashMap<>() {{
+            put('*', 2);
+            put('#', -1);
+        }};
+
+        int point = 0;
+        List<Integer> total = new ArrayList<>();
+        for (int i = 0 ; i < dartResult.length() ; i++) {
+            char c = dartResult.charAt(i);
+            if ('1' == c && dartResult.charAt(i + 1) == '0'){
+                total.add(point, 10);
+                i++;
+                point++;
+            } else if ('0' <= c && '9' >= c) {
+                total.add(point, c - '0');
+                point++;
+            } else if (bonus.containsKey(c)) {
+                total.set(point - 1, (int)Math.pow(total.get(point - 1), bonus.get(c)));
+            } else if (option.containsKey(c)) {
+                if (c == '*') {
+                    if (point - 2 >= 0) {
+                        total.set(point - 2, total.get(point - 2) * 2);
+                        total.set(point - 1, total.get(point - 1) * 2);
+                    } else {
+                        total.set(point - 1, total.get(point - 1) * 2);
+                    }
+                } else if (c == '#') {
+                    total.set(point - 1, total.get(point - 1) * -1);
+                }
+            }
+        }
+        int answer = 0;
+        for (Integer integer : total) {
+            answer += integer;
+        }
+        return answer;
+    }
+
+    public String[] solution(int n, int[] arr1, int[] arr2) {
+        String[] answer = new String[n];
+        for (int i = 0 ; i < n ; i++) {
+            int a = arr1[i] | arr2[i];
+            String s = Integer.toBinaryString(a);
+            int length = s.length();
+            if (length < n) {
+                for (int j = 0 ; j < (n - length) ;j++) {
+                    s = "0" + s;
+                }
+            }
+            System.out.println(s);
+            answer[i] = s.replace("0", " ").replace("1", "#");
+
+        }
+        return answer;
+    }
 }
