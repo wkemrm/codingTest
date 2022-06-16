@@ -1,8 +1,15 @@
+import java.util.*;
+import java.util.stream.Stream;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input1 = sc.next();
+        Chapter1 c = new Chapter1();
+        String s = c.solution8(input1);
 
-        Programmers programmers = new Programmers();
-        programmers.solution(5, new int[]{0,0,0,0,0}, new int[]{30,1,21,17,28});
+        System.out.println(s);
 
+        return;
     }
 }
