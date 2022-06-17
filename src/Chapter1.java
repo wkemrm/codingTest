@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class Chapter1 {
@@ -144,6 +145,97 @@ public class Chapter1 {
 
         if (tmp.equalsIgnoreCase(tmp)) answer = "YES";
         
+        return answer;
+    }
+    
+    // 팰린드롬
+    public String solution10(String str) {
+        str = str.toLowerCase();
+        char[] chars = str.toCharArray();
+        int lt = 0;
+        int rt = chars.length - 1;
+        String answer = "YES";
+
+        while (lt < rt) {
+            if (!Character.isAlphabetic(chars[lt])) {
+                lt++;
+            } else if (!Character.isAlphabetic(chars[rt])) {
+                rt--;
+            } else if (chars[lt] != chars[rt]) {
+                answer = "NO";
+                break;
+            } else {
+                lt++;
+                rt--;
+            }
+        }
+
+        return answer;
+    }
+    
+    // 팰린드롬 replaceAll 쓰는 방식
+    public String solution11(String str) {
+        str = str.toLowerCase().replaceAll("[^A-Z]", "");
+        String str2 = new StringBuilder(str).reverse().toString();
+
+        String answer = "NO";
+
+        if (str.equals(str2)) {
+            answer = "YES";
+        }
+
+        return answer;
+    }
+    
+    // 숫자만 추출 -> 정규식을 이용하면 엄청 편하게 구할수 있는듯 정규식 공부 필요
+    public String solution12(String str) {
+        str = str.replaceAll("[^0-9]", "").replaceAll("^0+","");
+
+        return str;
+    }
+
+    // 숫자만 추출 두번째 방법
+    public int solution13(String str) {
+        int answer = 0;
+        for (char x : str.toCharArray()) {
+            if (x >= '0' && x <= '9') answer = answer * 10 + (x - '0');
+        }
+        return answer;
+    }
+    
+    // 가장 짧은 문자 거리 -> 처음에 어캐 푸는지 감도 안잡혔음 다시 봐야할듯
+    public String solution14(String s, String t) {
+        char[] chars = s.toCharArray();
+        int[] ints = new int[s.length()];
+        String answer = "";
+        int count = 1000;
+
+        for (int i = 0 ; i < chars.length ; i++) {
+            if (chars[i] == t.charAt(0)) {
+                count = 0;
+            } else {
+                count++;
+            }
+            ints[i] = count;
+        }
+
+        count = 1000;
+        for (int i = chars.length - 1 ; i >= 0 ; i--) {
+            if (chars[i] == t.charAt(0)) {
+                ints[i] = 0;
+                count = 0;
+            } else {
+                count ++;
+                ints[i] = Math.min(ints[i], count);
+            }
+        }
+        for (int anInt : ints) {
+            answer += " " + anInt;
+        }
+
+        answer = answer.trim();
+
+
         return answer;
     }
 
