@@ -238,5 +238,62 @@ public class Chapter1 {
 
         return answer;
     }
+    
+    // 문자열 압축 내가 푼 방식
+    public String solution15(String str) {
+        char[] chars = str.toCharArray();
+        char t = chars[0];
+        int count = 0;
+        String answer = "";
+
+        for (int i = 0 ; i < chars.length ; i++) {
+            if (t != chars[i]) {
+                answer += t;
+                if (count > 1) answer += count;
+                t = chars[i];
+                count = 1;
+            } else {
+                count++;
+            }
+        }
+
+        answer += t;
+
+        if (count > 1) answer += count;
+
+        return answer;
+    }
+
+    // 문자열 압축 강의가 푼 방식
+    public String solution16(String str) {
+        String answer = "";
+        str += " ";
+        int cnt = 1;
+
+        for (int i = 0 ; i < str.length() - 1 ; i++) {
+            if (str.charAt(i) == str.charAt(i + 1)) {
+                cnt++;
+            } else {
+                answer += str.charAt(i);
+                if (cnt > 1) answer += String.valueOf(cnt);
+                cnt = 1;
+            }
+        }
+
+        return answer;
+    }
+    
+    // 암호 내가 푼 방식
+    public String solution17(int n, String str) {
+        str = str.replace('#', '1').replace('*', '0');
+        String answer = "";
+        for (int i = 0 ; i < n ; i++) {
+            String substring = str.substring(i * 7, i * 7 + 7);
+            int integer = Integer.parseInt(substring, 2);
+            answer += (char) integer;
+        }
+
+        return answer;
+    }
 
 }
