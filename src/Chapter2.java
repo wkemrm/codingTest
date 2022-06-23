@@ -303,4 +303,35 @@ public class Chapter2 {
 
         return answer;
     }
+    
+    // 멘토링 -> 4중 for문 다시 풀어봐야함 못풀었음
+    public int solution15(int n, int m, int[][] array) {
+        int answer = 0;
+
+        for (int i = 1 ; i <= n ; i++) {
+            for (int j = 1 ; j <= n ; j++) {
+                int cnt = 0;
+                for (int k = 0 ; k < m ; k++) {
+                    int pi = 0;
+                    int pj = 0;
+                    for (int s = 0 ; s < n ; s++) {
+                        if (array[k][s] == i) {
+                            pi = s;
+                        }
+                        if (array[k][s] == j) {
+                            pj = s;
+                        }
+                    }
+                    if (pi < pj) {
+                        cnt++;
+                    }
+                }
+                if (cnt == m) {
+                    answer++;
+                }
+            }
+        }
+
+        return answer;
+    }
 }
