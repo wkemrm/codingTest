@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class Chapter4 {
     // 학급회장 문제 map.getOrDefault만 알아가면 될꺼같다..
@@ -53,6 +50,37 @@ public class Chapter4 {
             return "YES";
         } else {
             return "NO";
+        }
+    }
+
+    // 매출액의 종류 => 틀렸었음
+    public List<Integer> solution3(int n, int m, int[] array) {
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Integer> answer = new ArrayList<>();
+        int lt = 0;
+        for (int i = 0 ; i < m - 1 ; i++) {
+            map.put(array[i], map.getOrDefault(array[i], 0) + 1);
+        }
+
+        for (int rt = m - 1 ; rt < n ; rt++) {
+            map.put(array[rt], map.getOrDefault(array[rt], 0) + 1);
+            answer.add(map.size());
+            map.put(array[lt], map.get(array[lt]) - 1);
+            if (map.get(array[lt]) == 0) {
+                map.remove(array[lt]);
+            }
+            lt++;
+        }
+
+        return answer;
+    }
+    
+    // 모든 아나그램 찾기
+    public int solution4(String s, String t) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        char[] chars = t.toCharArray();
+        for (char aChar : chars) {
+            map.put(aChar, 0);
         }
     }
 }
