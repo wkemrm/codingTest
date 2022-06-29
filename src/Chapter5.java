@@ -196,4 +196,84 @@ public class Chapter5 {
 
         return answer;
     }
+    
+    // 응급실
+    public int solution9(int n, int m , int[] array) {
+        Queue<Integer> queue = new LinkedList<>();
+        int answer = 0;
+        for (int i : array) {
+            queue.offer(i);
+        }
+
+        int i = m;
+
+        while (!queue.isEmpty()) {
+            Integer poll = queue.poll();
+            boolean max = true;
+
+            for (Integer integer : queue) {
+                if (poll < integer) {
+                    max = false;
+                }
+            }
+
+            if (max) {
+                answer++;
+                if (i == 0) {
+                    break;
+                }
+                i--;
+            } else {
+                queue.offer(poll);
+                if (i == 0) {
+                    i = queue.size() - 1;
+                } else {
+                    i--;
+                }
+            }
+
+
+        }
+        return answer;
+    }
+    
+    // 응급실 -> 객체 쓰는 방법
+    class Person{
+        int index;
+        int priority;
+
+        public Person(int index, int priority) {
+            this.index = index;
+            this.priority = priority;
+        }
+    }
+
+    public int solution10(int n, int m, int[] array) {
+        int answer = 0;
+        Queue<Person> queue = new LinkedList<>();
+        for (int i : array) {
+            queue.offer(new Person(i, array[i]));
+        }
+
+        while(!queue.isEmpty()) {
+            Person poll = queue.poll();
+
+            for (Person person : queue) {
+                if (poll.priority < person.priority) {
+                    queue.offer(poll);
+                    poll = null;
+                    break;
+                }
+            }
+
+            if (poll != null) {
+                answer++;
+                if (poll.index == m) {
+                    return answer;
+                }
+            }
+        }
+
+        return answer;
+    }
 }
